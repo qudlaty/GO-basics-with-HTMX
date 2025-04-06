@@ -6,10 +6,11 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>HELLO GO index</h1>
+    <h1>Items description and usecases</h1>
     
+    <h3>List of existing items - can be moved?</h3>
     {{ range .Items }}        
-        <p> {{ .ItemName }} - {{ .ItemMovable }} </p>
+        <p> {{ .ItemName }} -  {{ if .ItemMovable }}YES{{ else }}NO{{ end }} </p>
     {{end}}
 </body>
 </html>

@@ -6,20 +6,20 @@ import (
 	"text/template"
 )
 
-type ExampleInventoryInterface struct {
+type Objects_entities struct {
 	ItemName    string
-	ItemMovable string
+	ItemMovable bool
 }
 
 func main() {
 
 	h1 := func(w http.ResponseWriter, r *http.Request) {
 		tmpl := template.Must(template.ParseFiles("index.html"))
-		inventory := map[string][]ExampleInventoryInterface{
+		inventory := map[string][]Objects_entities{
 			"Items": {
-				{ItemName: "M40 Rifle", ItemMovable: "true"},
-				{ItemName: "Barrel", ItemMovable: "true"},
-				{ItemName: "Door", ItemMovable: "false"},
+				{ItemName: "M40 Rifle", ItemMovable: true},
+				{ItemName: "Barrel", ItemMovable: true},
+				{ItemName: "Door", ItemMovable: false},
 			},
 		}
 		tmpl.Execute(w, inventory)
