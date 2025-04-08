@@ -3,14 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script  src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
+    <section>
     <h1>Items description and usecases</h1>
+    <div>
+        <span> List of existing items -</span> <span> - Can be moved?</span>
+    </div>   
     
-    <h3>List of existing items - can be moved?</h3>
-    {{ range .Items }}        
-        <p> {{ .ItemName }} -  {{ if .ItemMovable }}YES{{ else }}NO{{ end }} </p>
-    {{end}}
+    <ul id="itemsList">
+        {{ range .Items }}
+            {{block "items-list-element" .}}  
+                <li><span> {{ .ItemName }} </span> <span> {{ if .ItemMovable }}YES{{ else }}NO{{ end }} </span></li>
+            {{end}}
+        {{end}}
+    </ul>
+    
+    </section>
+    <section>
+        <h2> Add item</h2>
+        <form hx-post="/add-item/" hx-target="#itemsList" hx-swap="beforeend" hx-indicator="#loading-indicator">
+            <p>
+                <label for="add-item-name"></label>
+                <input type="text" name="itemName" id="add-item-name">  
+            </p>
+            <p>
+            <label for="item-movable"></label>
+            <input type="checkbox" name="itemMovable" id="item-movable">
+            </p>
+            <button style="padding:5px" type="submit">ADD <span id="loading-indicator" class="htmx-indicator">Loading...</span></button>
+        </form>
+    </section>
 </body>
 </html>
